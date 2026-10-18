@@ -38,7 +38,7 @@ def clearReplace(cleanSongs):
     
     leftFrame = ttk.Frame(root, relief="groove", borderwidth=10)
     frame = ttk.Frame(leftFrame, relief="groove", borderwidth=10)
-    Label(root, text="The program only supports wav files. You need ffmpeg installed to convert to .wav.").pack()
+    Label(root, text="The program only supports wav files. You need ffmpeg installed to convert to .wav.\nYou need to change your recording device to Stereo Mix in order for the audio visualizer to work properly.").pack()
     Button(frame, text="Choose Songs", width = 25, command=chooseSongs).pack(side=LEFT, expand=True) ##Create a button that the user can click on to choose their songs.
     Button(frame, text="Clear Songs", command=lambda:clearReplace(True)).pack(side=LEFT, expand=True)
     Button(frame, text="STOP", command=lambda: stopSong()).pack(side=LEFT, expand=True)
@@ -75,8 +75,8 @@ fig, ax = plt.subplots()
 x= np.arange(0,2 * CHUNK, 2)
 line, = ax.plot(x, np.random.rand(CHUNK))
 ##setting the limits of the graph
-ax.set_ylim(0,255)
-ax.set_xlim(0, CHUNK)
+ax.set_ylim(-2* CHUNK, 2*CHUNK)
+ax.set_xlim(0, 2*CHUNK)
 
 ##remove the axes legends because they ugly
 plt.axis('off')
@@ -94,7 +94,7 @@ def updateGraph():
     fig.canvas.draw()
     fig.canvas.flush_events()
     
-    root.after(30, updateGraph)
+    root.after(50, updateGraph)
 
 
 
@@ -174,7 +174,7 @@ def evaluateSongList():
 
 ##Use the master.after(milliseconds, function) tkinter function to call the updateGraph function()
 #parallel with all other functions. Without this specific call, the program will not run correctly.
-root.after(30, updateGraph)
+root.after(50, updateGraph)
 clearReplace(False)
 
 ##Ensure the tkinter window stays open during the program.
